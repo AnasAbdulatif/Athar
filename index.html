@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أثر | كل لمسة خير تترك أثرًا من نور</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Canvas for particle system -->
+    <canvas id="cosmos"></canvas>
+
+    <!-- Scene 1: Landing -->
+    <div id="landing" class="scene active">
+        <div class="landing-content">
+            <div class="bismillah">بسم الله الرحمن الرحيم</div>
+            <h1 class="logo">أَثَر</h1>
+            <p class="tagline">كل لمسة خير... تترك أثرًا من نور</p>
+            <div class="invite-touch">
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring delay"></div>
+                <span class="touch-text">المس الظلام لتكشف النور</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scene 2: The Experience -->
+    <div id="experience" class="scene">
+        <div class="athar-counter" id="atharCounter">
+            <span class="counter-label">أثرك</span>
+            <span class="counter-value" id="deedCount">٠</span>
+            <span class="counter-unit">نور</span>
+        </div>
+
+        <div class="touch-hint" id="touchHint">
+            اختر نجمة لتكشف نورًا...
+        </div>
+
+        <div class="progress-orbits" id="progressOrbits"></div>
+    </div>
+
+    <!-- Deed Card (Revealed on tap) -->
+    <div id="deedCard" class="deed-card hidden">
+        <div class="card-inner">
+            <div class="card-glow"></div>
+            <div class="deed-category" id="deedCategory"></div>
+            <h2 class="deed-title" id="deedTitle"></h2>
+            <p class="deed-description" id="deedDescription"></p>
+            <div class="divider">
+                <span class="divider-line"></span>
+                <span class="divider-ornament">✦</span>
+                <span class="divider-line"></span>
+            </div>
+            <blockquote class="verse" id="deedVerse"></blockquote>
+            <cite class="source" id="deedSource"></cite>
+            <div class="thawab" id="deedThawab"></div>
+        </div>
+        <button class="card-close" id="cardClose" aria-label="إغلاق">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Completion Overlay -->
+    <div id="completionOverlay" class="completion hidden">
+        <div class="completion-content">
+            <div class="completion-light"></div>
+            <h2>ما شاء الله</h2>
+            <p class="completion-message">لقد أنرت الظلام بأثرك<br>كل نور كشفته... هو بذرة خير في الدنيا والآخرة</p>
+            <div class="completion-verse">
+                "فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ"
+                <span class="completion-source">سورة الزلزلة - ٧</span>
+            </div>
+            <button id="resetBtn" class="reset-btn">ابدأ رحلة جديدة من النور</button>
+        </div>
+    </div>
+
+    <script src="js/deeds.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
