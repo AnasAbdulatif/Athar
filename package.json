@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "أثر — Digital Experience for Micro-Acts of Kindness",
   "scripts": {
-    "build": "echo 'Static site — no build needed'",
-    "start": "npx serve ."
+    "build": "mkdir -p dist && cp -r index.html css js dist/",
+    "start": "npx serve dist"
   }
 }
