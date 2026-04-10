@@ -99,11 +99,12 @@ body {
 
 .bismillah {
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
     color: var(--text-secondary);
     opacity: 0;
     animation: fadeSlideUp 1.5s var(--transition-smooth) 0.3s forwards;
     letter-spacing: 0.05em;
+    margin-bottom: 2rem;
 }
 
 .logo {
@@ -829,6 +830,20 @@ body {
    ======================================== */
 .no-scroll {
     overflow: hidden;
+}
+
+/* Footer Credit */
+.credit {
+    position: fixed;
+    bottom: 0.8rem;
+    right: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: rgba(160, 152, 128, 0.4);
+    z-index: 3;
+    pointer-events: none;
+    letter-spacing: 0.02em;
 }
 
 /* Ripple click effect (added dynamically) */
