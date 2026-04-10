@@ -342,6 +342,16 @@ body {
     animation: orbEnter 0.8s var(--transition-bounce) forwards;
 }
 
+/* Orb ascend (after click — star rises gracefully) */
+.deed-orb.ascending {
+    pointer-events: none;
+    animation: starAscend 1.2s ease-in forwards;
+}
+
+.deed-orb.ascending .orb-core {
+    animation: starBrighten 1.2s ease-in forwards;
+}
+
 @keyframes orbEnter {
     0% {
         opacity: 0;
@@ -353,6 +363,94 @@ body {
     100% {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@keyframes starAscend {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    30% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.8);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-120px) scale(0.3);
+    }
+}
+
+@keyframes starBrighten {
+    0% {
+        box-shadow:
+            0 0 3px #fff,
+            0 0 8px rgba(212, 168, 83, 0.8),
+            0 0 18px rgba(212, 168, 83, 0.4);
+    }
+    30% {
+        box-shadow:
+            0 0 10px #fff,
+            0 0 25px rgba(212, 168, 83, 1),
+            0 0 50px rgba(212, 168, 83, 0.6),
+            0 0 80px rgba(212, 168, 83, 0.3);
+    }
+    100% {
+        box-shadow:
+            0 0 2px rgba(255,255,255,0.3),
+            0 0 5px rgba(212, 168, 83, 0.2);
+    }
+}
+
+/* Glow effect when star is selected */
+.star-select-glow {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 8;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(212, 168, 83, 0.5) 40%, transparent 70%);
+    animation: selectGlow 1.2s ease-out forwards;
+}
+
+@keyframes selectGlow {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    40% {
+        transform: translate(-50%, -50%) scale(12);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(20);
+        opacity: 0;
+    }
+}
+
+/* Sparkles that float upward */
+.star-sparkle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    pointer-events: none;
+    z-index: 8;
+    transform: translate(-50%, -50%);
+    animation: sparkleRise 1s ease-out forwards;
+}
+
+@keyframes sparkleRise {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% - 60px)) scale(0.3);
     }
 }
 
@@ -838,22 +936,50 @@ body {
     bottom: 0.8rem;
     right: 1rem;
     font-family: var(--font-body);
-    font-size: 0.7rem;
-    font-weight: 300;
-    color: rgba(160, 152, 128, 0.4);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--gold-dim);
     z-index: 3;
     pointer-events: none;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
+    background: linear-gradient(
+        90deg,
+        var(--gold-dim) 0%,
+        var(--gold-dim) 46%,
+        var(--gold-light) 50%,
+        var(--gold-dim) 54%,
+        var(--gold-dim) 100%
+    );
+    background-size: 500% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: goldShimmer 10s linear infinite;
+}
+
+@keyframes goldShimmer {
+    0%, 75% {
+        background-position: -30% center;
+    }
+    95%, 100% {
+        background-position: 130% center;
+    }
 }
 
 /* Ripple click effect (added dynamically) */
 .click-ripple {
     position: fixed;
     border-radius: 50%;
-    border: 2px solid rgba(212, 168, 83, 0.5);
     pointer-events: none;
     z-index: 5;
-    animation: rippleExpand 1.2s ease-out forwards;
+    background: radial-gradient(
+        circle,
+        transparent 30%,
+        rgba(212, 168, 83, 0.25) 50%,
+        rgba(212, 168, 83, 0.08) 65%,
+        transparent 75%
+    );
+    animation: rippleExpand 1s ease-out forwards;
 }
 
 @keyframes rippleExpand {
@@ -863,22 +989,28 @@ body {
         opacity: 1;
     }
     100% {
-        width: 300px;
-        height: 300px;
+        width: 280px;
+        height: 280px;
         opacity: 0;
-        margin-top: -150px;
-        margin-left: -150px;
+        margin-top: -140px;
+        margin-left: -140px;
     }
 }
 
-/* Second ripple ring */
+/* Second ripple wave */
 .click-ripple-outer {
     position: fixed;
     border-radius: 50%;
-    border: 1px solid rgba(212, 168, 83, 0.25);
     pointer-events: none;
     z-index: 5;
-    animation: rippleExpandOuter 1.6s ease-out 0.15s forwards;
+    background: radial-gradient(
+        circle,
+        transparent 40%,
+        rgba(212, 168, 83, 0.12) 55%,
+        rgba(212, 168, 83, 0.03) 70%,
+        transparent 80%
+    );
+    animation: rippleExpandOuter 1.4s ease-out 0.1s forwards;
 }
 
 @keyframes rippleExpandOuter {
@@ -888,11 +1020,11 @@ body {
         opacity: 0.8;
     }
     100% {
-        width: 500px;
-        height: 500px;
+        width: 400px;
+        height: 400px;
         opacity: 0;
-        margin-top: -250px;
-        margin-left: -250px;
+        margin-top: -200px;
+        margin-left: -200px;
     }
 }
 
@@ -902,10 +1034,10 @@ body {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: radial-gradient(circle, var(--gold-light), transparent);
+    background: radial-gradient(circle, #fff, var(--gold-light) 40%, transparent 70%);
     pointer-events: none;
     z-index: 5;
-    animation: flashExpand 0.6s ease-out forwards;
+    animation: flashExpand 0.5s ease-out forwards;
     transform: translate(-50%, -50%);
 }
 
@@ -914,8 +1046,11 @@ body {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
+    50% {
+        opacity: 0.6;
+    }
     100% {
-        transform: translate(-50%, -50%) scale(15);
+        transform: translate(-50%, -50%) scale(10);
         opacity: 0;
     }
 }

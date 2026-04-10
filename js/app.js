@@ -336,13 +336,13 @@
     }
 
     function removeOrb(orb) {
-        // Quick fade-out for clicked orbs
-        orb.style.transition = 'opacity 0.4s ease';
-        orb.style.opacity = '0';
+        // Star ascends upward gracefully
+        orb.classList.add('ascending');
+        orb._ascending = true; // stop trail recording
         const idx = activeOrbs.indexOf(orb);
         if (idx > -1) activeOrbs.splice(idx, 1);
 
-        setTimeout(() => orb.remove(), 400);
+        setTimeout(() => orb.remove(), 1200);
     }
 
     // --- Handlers ---
@@ -360,7 +360,7 @@
         isCardOpen = true;
         currentClickedOrb = orb;
 
-        // Ripple at orb position
+        // Explosion at star position
         const rect = orb.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
         const cy = rect.top + rect.height / 2;
@@ -489,6 +489,29 @@
             rippleOuter.remove();
             flash.remove();
         }, 2000);
+    }
+
+    function createGlowEffect(x, y) {
+        // Soft expanding glow
+        const glow = document.createElement('div');
+        glow.className = 'star-select-glow';
+        glow.style.left = x + 'px';
+        glow.style.top = y + 'px';
+        document.body.appendChild(glow);
+
+        // Tiny sparkles that drift upward
+        for (let i = 0; i < 8; i++) {
+            const spark = document.createElement('div');
+            spark.className = 'star-sparkle';
+            spark.style.left = (x + (Math.random() - 0.5) * 20) + 'px';
+            spark.style.top = (y + (Math.random() - 0.5) * 20) + 'px';
+            spark.style.animationDelay = (Math.random() * 0.3) + 's';
+            spark.style.animationDuration = (0.8 + Math.random() * 0.6) + 's';
+            document.body.appendChild(spark);
+            setTimeout(() => spark.remove(), 1500);
+        }
+
+        setTimeout(() => glow.remove(), 1200);
     }
 
     function showCompletion() {

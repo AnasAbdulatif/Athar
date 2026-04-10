@@ -93,13 +93,8 @@ class ParticleSystem {
             if (p.y > this.height + 10) p.y = -10;
         }
 
-        for (let i = this.ripples.length - 1; i >= 0; i--) {
-            const r = this.ripples[i];
-            if (r.delay && r.delay > 0) { r.delay--; continue; }
-            r.radius += r.speed;
-            r.opacity *= 0.985;
-            if (r.opacity < 0.01 || r.radius > r.maxRadius) this.ripples.splice(i, 1);
-        }
+        // Ripple update removed
+        this.ripples.length = 0;
 
         for (let i = this.bursts.length - 1; i >= 0; i--) {
             const b = this.bursts[i];
@@ -123,14 +118,7 @@ class ParticleSystem {
             this.ctx.fill();
         }
 
-        for (const r of this.ripples) {
-            if (r.delay && r.delay > 0) continue;
-            this.ctx.beginPath();
-            this.ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-            this.ctx.strokeStyle = `rgba(212, 168, 83, ${r.opacity})`;
-            this.ctx.lineWidth = r.lineWidth;
-            this.ctx.stroke();
-        }
+        // Ripples removed — no background effect after explosion
 
         for (const b of this.bursts) {
             const s = b.life;
